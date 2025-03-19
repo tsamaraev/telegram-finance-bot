@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean, Enum, create_engine
+from sqlalchemy import Column, Integer, BigInteger, String, ForeignKey, DateTime, Float, Boolean, Enum, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
@@ -7,7 +7,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    user_id = Column(Integer, primary_key=True, unique=True, nullable=False)
+    user_id = Column(BigInteger, primary_key=True, unique=True, nullable=False)
     username = Column(String, nullable=True)
     currency = Column(String, nullable=False)
     reminder_time = Column(String, nullable=True)
@@ -45,15 +45,5 @@ class AssetLiability(Base):
     amount = Column(Float, nullable=False)
     date_added = Column(DateTime, nullable=False)
     description = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-
-class Reminder(Base):
-    __tablename__ = 'reminders'
-    id = Column(Integer, primary_key=True, unique=True, nullable=False)
-    user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
-    message = Column(String, nullable=False)
-    time = Column(String, nullable=False)
-    is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
